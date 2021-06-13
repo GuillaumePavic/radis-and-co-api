@@ -19,6 +19,7 @@
   "homepage": "https://github.com/O-clock-Robin/projet-gestion-potagere-back#readme",
   "dependencies": {
     "dotenv": "^10.0.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
   }
 }
