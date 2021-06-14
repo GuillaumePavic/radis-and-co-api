@@ -1,4 +1,4 @@
-const handler = require('../midllewares/async');
+const handler = require('../middlewares/async');
 const dataMapper = require('../dataMappers/dataMapper');
 
 exports.getAllPlants = handler(async (req, res) => {
