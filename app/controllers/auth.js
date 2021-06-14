@@ -12,7 +12,7 @@ exports.auth = handler(async (req, res) => {
         if(error) return res.status(400).send(error.details[0].message);        
     }
 
-    //Appels db
+    //check email and password
     const user = await dataMapper.getUser(req.body.email);
     if(!user) return res.status(400).json({message : "invalid email or password"});
 
