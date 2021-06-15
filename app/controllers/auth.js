@@ -13,7 +13,7 @@ exports.auth = handler(async (req, res) => {
     }
 
     //check email and password
-    const user = await dataMapper.getUser(req.body.email);
+    const user = await dataMapper.getUserByEmail(req.body.email);
     if(!user) return res.status(400).json({message : "invalid email or password"});
 
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
