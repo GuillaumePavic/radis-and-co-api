@@ -10,6 +10,6 @@ module.exports = (req, res, next) => {
       next();
     }
     catch (ex) {
-      res.status(400).send('Invalid token.');
+      res.status(401).json({ message: 'Invalid token' });
     }
 }

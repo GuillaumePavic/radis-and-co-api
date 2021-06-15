@@ -1,7 +1,8 @@
 const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
-const { userSchema } = require('../validation/user');
+const userSchema = require('../validation/user');
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 exports.createUser = handler(async (req, res) => {
     let user = req.body;
@@ -17,7 +18,12 @@ exports.createUser = handler(async (req, res) => {
     user.password = await bcrypt.hash(user.password, 10);
     user = await dataMapper.createUser(user);
 
-    res.json({ pseudo : user.pseudo });
+    //JWT
+    const payload = {id: user.id};
+    const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
+
+
+    res.json({id: user.id, pseudo : user.pseudo, token });
 });
 
 exports.getUser = handler(async (req, res) => {
@@ -28,8 +34,17 @@ exports.getUser = handler(async (req, res) => {
 });
 
 exports.updateUser = handler(async (req, res) => {
+    //joi rajouter validation juste pour upadate (donc sans les required)
+
     const userId = req.user.id;
     let user = await dataMapper.getUserById(userId);
+
+    //check password
+    const validPassword = bcrypt.compareSync(req.body.password, user.password);
+    if(!validPassword) return res.status(400).json({message : "invalid password"});
+
+    //on check si password est maj dans req.body
+    if(req.body.newPassword) req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
 
     const userData = {
         ...user,
@@ -41,21 +56,10 @@ exports.updateUser = handler(async (req, res) => {
     res.json(user);
 });
 
-exports.updatePassword = handler(async (req, res) => {
-    const userId = req.user.id;
-    let password = req.body.password;
-
-    //hash password
-    password = await bcrypt.hash(password, 10);    
-    await dataMapper.updatePassword(password, userId);
-
-    res.json({message: 'password updated'});
-})
-
 exports.deleteUser = handler(async (req, res) => {
     const userId = req.user.id;
 
     await dataMapper.deleteUser(userId);
     res.json({message: 'user deleted'});
-})
+});
  

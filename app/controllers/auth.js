@@ -25,5 +25,5 @@ exports.auth = handler(async (req, res) => {
 
     const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
     
-    res.header('x-auth-token', token).json({pseudo: user.pseudo});
+    res.json({pseudo: user.pseudo, token});
 });

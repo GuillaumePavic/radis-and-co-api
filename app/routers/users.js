@@ -6,8 +6,7 @@ const router = express.Router();
 router.route('/')
     .post(userController.createUser)
     .get(authMiddleware, userController.getUser)
-    .put(authMiddleware, userController.updateUser)
-    .patch(authMiddleware, userController.updatePassword)
+    .patch(authMiddleware, userController.updateUser)
     .delete(authMiddleware, userController.deleteUser);
 
 module.exports = router;
