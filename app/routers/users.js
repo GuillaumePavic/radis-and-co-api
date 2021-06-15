@@ -6,7 +6,6 @@ const router = express.Router();
 router.route('/')
     .post(userController.createUser)
     .get(authMiddleware, userController.getUser)
-    .put(authMiddleware, userController.updateUser)
     .patch(authMiddleware, userController.updatePassword)
     .delete(authMiddleware, userController.deleteUser);
 

@@ -8,6 +8,6 @@ module.exports = function(app) {
     //app.use('/admin/user/:id', admin);
     app.use('/auth', auth);
     app.use('/plants', plants);
-    //app.use('/schemas', schemas);
+    app.use('/schemas', schemas);
     app.use('/users', users);
 };

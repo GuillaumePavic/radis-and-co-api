@@ -11,6 +11,7 @@ exports.getPlant = async (plantId) => {
     return result.rows[0];
 }
 
+
 //Users
 exports.createUser = async (user) => {
     const result = await db.query('INSERT INTO "user" ("pseudo", "email", "password") VALUES ($1, $2, $3) RETURNING *', [user.pseudo, user.email, user.password]);
@@ -42,4 +43,34 @@ exports.deleteUser = async(userId) => {
     const result = await db.query('DELETE FROM "user" WHERE id = $1', [userId]);
     return result;
 
+}
+
+
+//Schemas
+exports.createSchema = async (schema) => {
+    const result = await db.query('INSERT INTO "schema" ("name", "length", "width", "user_id") VALUES ($1, $2, $3, $4) RETURNING ("id", "name", "length", "width")', 
+    [schema.name, schema.length, schema.width, schema.user_id]);
+
+    return result.rows[0];
+}
+
+exports.getSchema = async (schemaId) => {
+    const result = await db.query('SELECT "name", "length", "width", "user_id" FROM "schema" WHERE id = $1', [schemaId]);
+    return result.rows[0];
+}
+
+exports.getSchemaFromUser = async (user_id) => {
+    const results = await db.query('SELECT "id", "name" FROM "schema" WHERE "user_id" = $1', [user_id]);
+    return results.rows;
+}
+
+exports.updateSchema = async (schemaData, schemaId) => {
+    const result = await db.query('UPDATE "schema" SET "name" = $1, "length" = $2, "width" = $3 WHERE id = $4 RETURNING "id", "name", "length", "width"',
+    [schemaData.name, schemaData.length, schemaData.width, schemaId]);
+    return result.rows[0];
+}
+
+exports.deleteSchema = async (schemaId) => {
+    const result = await db.query('DELETE FROM "schema" WHERE "id" = $1', [schemaId]);
+    return result;
 }
