@@ -27,6 +27,7 @@ exports.getSchema = handler(async (req, res) => {
     const schemaId = req.params.id;
 
     const schema = await dataMapper.getSchema(schemaId);
+    //ajouter 404
     if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
 
     res.json(schema);
@@ -55,6 +56,7 @@ exports.updateSchema = handler(async (req, res) => {
 
 exports.deleteSchema = handler(async(req, res) => {
     const user_id = req.user.id;
+    const schemaId = req.params.id;
 
     let schema = await dataMapper.getSchema(schemaId);
     if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });

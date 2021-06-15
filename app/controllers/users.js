@@ -2,6 +2,7 @@ const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
 const userSchema = require('../validation/user');
 const bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
 
 exports.createUser = handler(async (req, res) => {
     let user = req.body;
@@ -17,7 +18,12 @@ exports.createUser = handler(async (req, res) => {
     user.password = await bcrypt.hash(user.password, 10);
     user = await dataMapper.createUser(user);
 
-    res.json({id: user.id, pseudo : user.pseudo });
+    //JWT
+    const payload = {id: user.id};
+    const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
+
+
+    res.json({id: user.id, pseudo : user.pseudo, token });
 });
 
 exports.getUser = handler(async (req, res) => {
@@ -48,17 +54,6 @@ exports.updateUser = handler(async (req, res) => {
     user = await dataMapper.updateUser(userData, userId);
     
     res.json(user);
-});
-
-exports.updatePassword = handler(async (req, res) => {
-    const userId = req.user.id;
-    let password = req.body.password;
-
-    //hash password
-    password = await bcrypt.hash(password, 10);    
-    await dataMapper.updatePassword(password, userId);
-
-    res.json({message: 'password updated'});
 });
 
 exports.deleteUser = handler(async (req, res) => {
