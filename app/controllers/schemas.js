@@ -30,6 +30,10 @@ exports.getSchema = handler(async (req, res) => {
     //ajouter 404
     if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
 
+    const crops = await dataMapper.getCrops(schemaId);
+    
+    schema.crops = crops;
+
     res.json(schema);
 });
 
