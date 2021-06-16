@@ -74,3 +74,30 @@ exports.deleteSchema = async (schemaId) => {
     const result = await db.query('DELETE FROM "schema" WHERE "id" = $1', [schemaId]);
     return result;
 }
+
+
+//Crops
+exports.createCrop = async (crop) => {
+    await db.query('INSERT INTO "schema_has_plant" ("schema_id", "plant_id", "coord_x", "coord_y") VALUES ($1, $2, $3, $4)',
+    [crop.schema_id, crop.plant_id, crop.coord_x, crop.coord_y]);
+}
+
+exports.getCrops = async (schemaId) => {
+    const results = await db.query('SELECT * FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
+    return results.rows;
+} 
+
+exports.deleteCrops = async (schema_id) => {
+    await db.query('DELETE FROM "schema_has_plant" WHERE "schema_id" = $1', [schema_id]);
+}
+
+exports.updateCrop = async (crop) => {
+    await db.query('UPDATE "schema_has_plant" SET "coord_x" = $1, "coord_y" = $2 WHERE id = $3',
+    [crop.coord_x, crop.coord_y, crop.id]);
+}
+
+exports.essai = async () => {
+    const results = await db.query('SELECT "schema".id,"schema"."length","schema"."width", ARRAY_AGG(("schema_has_plant"."plant_id", "schema_has_plant"."coord_x", "schema_has_plant"."coord_y")) AS crops FROM "schema" JOIN "schema_has_plant" ON "schema_has_plant"."schema_id" = "schema"."id" WHERE "schema"."id" = $1 GROUP BY "schema"."id", "schema"."length", "schema"."width"',
+    [2]);
+    return results.rows;
+}
