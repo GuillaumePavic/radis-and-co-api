@@ -1,0 +1,8 @@
+[
+    {"id": 1, "label": "légumes fruits"},
+    {"id": 2,"label": "légumes racines"},
+    {"id": 3,"label": "légumes feuilles"},
+    {"id": 4,"label": "bulbes"},
+    {"id": 5,"label": "aromatiques"},
+    {"id": 6,"label": "fruits"}
+]
