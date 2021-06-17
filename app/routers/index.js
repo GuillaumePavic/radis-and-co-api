@@ -7,9 +7,9 @@ const users = require('./users');
 
 module.exports = function(app) {
     //app.use('/admin/user/:id', admin);
-    app.use('/auth', auth);
-    app.use('/crops', crops);
-    app.use('/plants', plants);
-    app.use('/schemas', schemas);
-    app.use('/users', users);
+    app.use('/api/auth', auth);
+    app.use('/api/crops', crops);
+    app.use('/api/plants', plants);
+    app.use('/api/schemas', schemas);
+    app.use('/api/users', users);
 };
