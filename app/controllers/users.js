@@ -1,5 +1,6 @@
 const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
+const get404 = require('../utils/404');
 const userSchema = require('../validation/user');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
@@ -34,6 +35,9 @@ exports.getUser = handler(async (req, res) => {
     const userId = req.user.id;
 
     const user = await dataMapper.getUserById(userId);
+
+    if(!user) return get404(res);
+
     res.json(user);
 });
 
