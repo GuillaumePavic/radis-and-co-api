@@ -14,6 +14,10 @@ exports.createUser = handler(async (req, res) => {
         if(error) return res.status(400).send(error.details[0].message);        
     }
 
+    //Check si déjà un user avec cet email
+    user = await dataMapper.getUserByEmail(user.email);
+    if(user) return res.status(409).json({message: 'email already used.'})
+
     //hash password
     user.password = await bcrypt.hash(user.password, 10);
     user = await dataMapper.createUser(user);
@@ -23,7 +27,7 @@ exports.createUser = handler(async (req, res) => {
     const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
 
 
-    res.json({id: user.id, pseudo : user.pseudo, token });
+    res.json({ pseudo : user.pseudo, token });
 });
 
 exports.getUser = handler(async (req, res) => {
