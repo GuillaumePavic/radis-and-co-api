@@ -1,14 +1,13 @@
 const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
 const get404 = require('../utils/404');
-const schemaSchema = require('../validation/schema');
+const {schemaSchema, updateSchema} = require('../validation/schema');
 
 exports.createSchema = handler(async (req, res) => {
-    const user_id = req.user.id;
     let schema = req.body;
-    schema.user_id = user_id;
+    schema.user_id = req.user.id;
 
-    //joi
+    //Joi
     try {
         await schemaSchema.validateAsync(schema);
     } catch (error) {
@@ -43,10 +42,14 @@ exports.updateSchema = handler(async (req, res) => {
     const user_id = req.user.id;
     const schemaId = req.params.id;
 
-    //joi rajouter validation juste pour upadate (dans sans les required)
+    //Joi
+    try {
+        await updateSchema.validateAsync(req.body);
+    } catch (error) {
+        if(error) return res.status(400).send(error.details[0].message);        
+    }
 
     let schema = await dataMapper.getSchema(schemaId);
-    
     if(!schema) return get404(res);
     if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
 
@@ -81,8 +84,6 @@ exports.getSchemaFromUser = handler(async(req, res) => {
     const user_id = req.user.id;
     
     const schemas = await dataMapper.getSchemaFromUser(user_id);
-    
-    if(!schema) return get404(res);
 
     res.json(schemas);
 })

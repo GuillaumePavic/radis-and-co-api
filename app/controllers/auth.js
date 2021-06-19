@@ -1,6 +1,6 @@
 const handler = require('../middlewares/async');
 const dataMapper = require('../dataMappers/dataMapper');
-const { authSchema } = require('../validation/auth');
+const authSchema = require('../validation/auth');
 const bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 

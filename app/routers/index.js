@@ -4,6 +4,7 @@ const crops = require('./crops');
 const plants = require('./plants');
 const schemas = require('./schemas');
 const users = require('./users');
+const get404 = require('../utils/404');
 
 module.exports = function(app) {
     //app.use('/admin/user/:id', admin);
@@ -12,4 +13,5 @@ module.exports = function(app) {
     app.use('/api/plants', plants);
     app.use('/api/schemas', schemas);
     app.use('/api/users', users);
+    app.use((req, res) => get404(res));
 };

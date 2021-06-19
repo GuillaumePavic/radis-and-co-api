@@ -1,9 +1,19 @@
 const Joi = require('joi');
 
-//auth POST
-exports.authSchema = Joi.object({
-    email: Joi.string().required(),
-    //.email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+const authSchema = Joi.object({
+    email: Joi.string()
+        .email({ minDomainSegments: 2, tlds: { allow: true } })
+        .pattern(new RegExp('^[A-Za-z0-9+_.-]+@(.+)$'))
+        .message('invalid email or password'),
+
     
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    password: Joi.string()
+    .min(8)
+        .message('invalid password')
+    .max(30)
+        .message('invalid password')
+    .pattern(new RegExp('^[&!?a-zA-Z0-9]{8,30}$'))
+        .message('invalid email or password')
 });
+
+module.exports = authSchema;

@@ -24,7 +24,7 @@ exports.getUserByEmail = async (email) => {
 }
 
 exports.getUserById = async (userId) => {
-    const result = await db.query('SELECT pseudo, email FROM "user" WHERE id = $1', [userId]);
+    const result = await db.query('SELECT pseudo, email, password FROM "user" WHERE id = $1', [userId]);
     return result.rows[0];
 }
 
@@ -55,7 +55,7 @@ exports.createSchema = async (schema) => {
 }
 
 exports.getSchema = async (schemaId) => {
-    const result = await db.query('SELECT "name", "length", "width", "user_id" FROM "schema" WHERE id = $1', [schemaId]);
+    const result = await db.query('SELECT "id", "name", "length", "width", "user_id" FROM "schema" WHERE id = $1', [schemaId]);
     return result.rows[0];
 }
 
@@ -77,9 +77,9 @@ exports.deleteSchema = async (schemaId) => {
 
 
 //Crops
-exports.createCrop = async (crop) => {
+exports.createCrop = async (schema_id, crop) => {
     await db.query('INSERT INTO "schema_has_plant" ("schema_id", "plant_id", "coord_x", "coord_y") VALUES ($1, $2, $3, $4)',
-    [crop.schema_id, crop.plant_id, crop.coord_x, crop.coord_y]);
+    [schema_id, crop.plant_id, crop.coord_x, crop.coord_y]);
 }
 
 exports.getCrops = async (schemaId) => {

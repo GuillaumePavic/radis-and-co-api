@@ -52,5 +52,18 @@ async function importData() {
     }
 }
 
-importData();
+//importData();
 
+async function fecthData() {
+    try {
+        await pool.connect();
+        console.log('db connected');
+
+        const results  = await pool.query('SELECT * FROM "type" JOIN "plant" ON plant.type_id = "type"."id" WHERE type.label = $1', ['bulbes']);
+        console.log(results.rows)
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+fecthData();
