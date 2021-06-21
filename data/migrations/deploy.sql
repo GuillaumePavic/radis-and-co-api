@@ -140,11 +140,9 @@ plant.image,
 plant.description,
 plant.size,
 array_to_json(array_agg(row_to_json(full_companion_pos))) AS companion_pos,
-array_to_json(array_agg(row_to_json(full_companion_neg))) AS companion_neg,
 type.label
 FROM plant
 LEFT JOIN full_companion_pos ON plant.id = full_companion_pos.plant_id
-LEFT JOIN full_companion_neg ON plant.id = full_companion_neg.plant_id
 JOIN type ON type.id = plant.type_id
 GROUP BY plant.id, type.label;
 
