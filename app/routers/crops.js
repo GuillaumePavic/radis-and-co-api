@@ -4,6 +4,6 @@ const express = require('express');
 const { auth } = require('../controllers/auth');
 const router = express.Router();
 
-router.post('/:id', authMiddleware, cropsController);
+router.post('/:id(\\d+)', authMiddleware, cropsController);
 
 module.exports = router;

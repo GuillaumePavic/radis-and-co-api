@@ -1,5 +1,6 @@
 //Connection db
 require('dotenv').config({path: '../.env'});
+const bcrypt = require('bcrypt');
 const { Pool } = require('pg');
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
@@ -28,6 +29,16 @@ const seeding = {
         } catch (error) {
             console.log(error)
         }
+    },
+
+    admin: async (data) => {
+        try {
+            await pool.query('SELECT * FROM add_admin($1)', [data]);
+            //await pool.query('INSERT INTO "user" (email, password, pseudo, is_admin) VALUES ($1, $2, $3, $4)',
+            // [data.email, data.password, data.pseudo, data.is_admin]);
+        } catch (error) {
+            console.log(error)
+        }
     }
 }
 
@@ -44,26 +55,23 @@ async function importData() {
         for(let plant of plants) {
             await seeding.plant(plant);
         }
+
+        const admin = {
+            email: process.env.ADMIN_EMAIL, 
+            password: process.env.ADMIN_PASSWORD, 
+            pseudo: "admin", 
+            is_admin: true
+        }
+        admin.password = await bcrypt.hash(admin.password, 10);
+
+        await seeding.admin(admin);
         
         console.log('seeding done');
         process.exit(1);
     } catch (error) {
         console.log(error);
+        process.exit(1);
     }
 }
 
-//importData();
-
-async function fecthData() {
-    try {
-        await pool.connect();
-        console.log('db connected');
-
-        const results  = await pool.query('SELECT * FROM "type" JOIN "plant" ON plant.type_id = "type"."id" WHERE type.label = $1', ['bulbes']);
-        console.log(results.rows)
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-fecthData();
+importData();

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "seeding": "cd data && node import_data.js"
   },
   "engines": {
     "node": "14.15.0"

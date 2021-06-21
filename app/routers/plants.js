@@ -4,6 +4,6 @@ const router = express.Router();
 
 router.get('/', plantController.getAllPlants);
 
-router.get('/:id', plantController.getPlant);
+router.get('/:id(\\d+)', plantController.getPlant);
 
 module.exports = router;

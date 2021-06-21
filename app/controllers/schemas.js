@@ -34,6 +34,7 @@ exports.getSchema = handler(async (req, res) => {
     const crops = await dataMapper.getCrops(schemaId);
     
     schema.crops = crops;
+    delete schema.user_id;
 
     res.json(schema);
 });
