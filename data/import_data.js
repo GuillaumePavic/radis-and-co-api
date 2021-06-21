@@ -34,8 +34,6 @@ const seeding = {
     admin: async (data) => {
         try {
             await pool.query('SELECT * FROM add_admin($1)', [data]);
-            //await pool.query('INSERT INTO "user" (email, password, pseudo, is_admin) VALUES ($1, $2, $3, $4)',
-            // [data.email, data.password, data.pseudo, data.is_admin]);
         } catch (error) {
             console.log(error)
         }
