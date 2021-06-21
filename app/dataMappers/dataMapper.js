@@ -2,7 +2,7 @@ const db = require('./dbConnect');
 
 //Plants
 exports.getAllPlants = async () => {
-    const results = await db.query('SELECT * FROM plant');
+    const results = await db.query('SELECT * FROM plants_with_companions');
     return results.rows;
 }
 
