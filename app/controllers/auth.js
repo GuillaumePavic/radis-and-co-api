@@ -21,7 +21,7 @@ exports.auth = handler(async (req, res) => {
 
     //JWT
     const payload = {id: user.id};
-    if(user.isAdmin) payload.isAdmin = true;
+    if(user.is_admin) payload.isAdmin = true;
 
     const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
     

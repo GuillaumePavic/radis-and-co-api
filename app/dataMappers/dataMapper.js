@@ -42,7 +42,6 @@ exports.updatePassword = async (password, userId) => {
 exports.deleteUser = async(userId) => {
     const result = await db.query('DELETE FROM "user" WHERE id = $1', [userId]);
     return result;
-
 }
 
 
@@ -96,8 +95,41 @@ exports.updateCrop = async (crop) => {
     [crop.coord_x, crop.coord_y, crop.id]);
 }
 
-exports.essai = async () => {
-    const results = await db.query('SELECT "schema".id,"schema"."length","schema"."width", ARRAY_AGG(("schema_has_plant"."plant_id", "schema_has_plant"."coord_x", "schema_has_plant"."coord_y")) AS crops FROM "schema" JOIN "schema_has_plant" ON "schema_has_plant"."schema_id" = "schema"."id" WHERE "schema"."id" = $1 GROUP BY "schema"."id", "schema"."length", "schema"."width"',
-    [2]);
+
+//admin
+exports.getAllUsers = async () => {
+    const results = await db.query('SELECT id, pseudo, email, is_admin FROM "user"');
     return results.rows;
+}
+
+exports.createAdmin = async (userId) => {
+    const result = await db.query('UPDATE "user" SET is_admin = true WHERE id = $1 RETURNING email, is_admin', [userId]);
+    return result.rows[0];
+}
+
+exports.removeAdmin = async (adminId) => {
+    const result = await db.query('UPDATE "user" SET is_admin = false WHERE id = $1 RETURNING email, is_admin', [adminId]);
+    return result.rows[0];
+}
+
+exports.deleteUser = async (userId) => {
+    const result = await db.query('DELETE FROM "user" WHERE id = $1', [userId]);
+    return result;
+}
+
+//admin plants
+exports.createPlant = async (plant) => {
+    const result = await db.query('SELECT * FROM add_plant($1)', [plant]);
+    return result;
+}
+
+exports.uppdatePlant = async (plant) => {
+    const result = await db.query('SELECT * FROM update_plant($1)', [plant]);
+    return result;
+}
+
+
+exports.deletePlant = async (plantId) => {
+    const result = await db.query('DELETE FROM "plant" WHERE id = $1', [plant]);
+    return result;
 }
