@@ -55,15 +55,70 @@ exports.createPlant = handler(async (req, res) =>  {
 });
 
 exports.updatePlant = handler(async (req, res) => {
-    let plant = req.body;
+    const plantId = req.params.id;
 
-    //fait fonction update plant
+    //check if plant is in database
+    let plant = await dataMapper.getPlant(plantId);
+    if(!plant) get404(res);
+
+    const plantData = {
+        ...plant,
+        ...req.body
+    }
+
+    plant = await dataMapper.updatePlant(plantData, plantId);
+
+    res.json(plant);
 });
 
 exports.deletePlant = handler(async (req, res) => {
     const plantId = req.params.id;
 
+    //check if plant is in database
+    const plant = await dataMapper.getPlant(plantId);
+    if(!plant) get404(res);
+
     await dataMapper.deletePlant(plantId);
 
     res.json({message : 'plante supprimée'});
+});
+
+//Types
+exports.getAllTypes = handler(async (req, res) => {
+    const types = await dataMapper.getAllTypes();
+
+    res.json(types);
 })
+
+exports.createType = handler(async (req, res) =>  {
+    let typeLabel = req.body.label;
+
+    type = await dataMapper.createType(typeLabel);
+
+    res.json(type);
+});
+
+exports.updateType = handler(async (req, res) => {
+    const typeId = req.params.id;
+    let newLabel = req.body.label;
+
+    //check if type is in database
+    let type = await dataMapper.getType(typeId);
+    if(!type) get404(res);
+
+    type = await dataMapper.updateType(newLabel, typeId);
+
+    res.json(type);
+});
+
+exports.deleteType = handler(async (req, res) => {
+    const typeId = req.params.id;
+
+    //check if type is in database
+    const type = await dataMapper.getType(typeId);
+    if(!type) get404(res);
+
+    await dataMapper.deleteType(typeId);
+
+    res.json({message : 'type supprimé'});
+});

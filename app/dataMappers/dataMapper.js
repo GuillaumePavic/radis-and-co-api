@@ -120,16 +120,63 @@ exports.deleteUser = async (userId) => {
 //admin plants
 exports.createPlant = async (plant) => {
     const result = await db.query('SELECT * FROM add_plant($1)', [plant]);
-    return result;
+    return result.rows[0];
 }
 
-exports.updatePlant = async (plant) => {
-    const result = await db.query('SELECT * FROM update_plant($1)', [plant]);
-    return result;
+exports.updatePlant = async (plant, plantId) => {
+    const query = `
+    UPDATE "plant" 
+    SET
+    "name" = $1, 
+    "scientific_name" = $2,
+    "sun" = $3,
+    "difficulty" = $4,
+    "water" = $5,
+    "icon" = $6,
+    "image" = $7,
+    "description" = $8,
+    "size" = $9,
+    "companion_pos" = $10,
+    "companion_neg" = $11,
+    "type_id" = $12
+    WHERE id = $13
+    RETURNING *
+    `;
+    const result = await db.query(query, [plant.name, plant.scientific_name, plant.sun, plant.difficulty, plant.water, plant.icon, 
+        plant.image, plant.description, plant.size, plant.companion_pos, plant.companion_neg, plant.type_id, plantId]);
+    
+    return result.rows[0];
 }
 
 
 exports.deletePlant = async (plantId) => {
-    const result = await db.query('DELETE FROM "plant" WHERE id = $1', [plant]);
+    const result = await db.query('DELETE FROM "plant" WHERE id = $1', [plantId]);
+    return result;
+}
+
+
+//admin types
+exports.getAllTypes = async () => {
+    const results = await db.query('SELECT * FROM "type"');
+    return results.rows;
+}
+
+exports.getType = async (typeId) => {
+    const result = await db.query('SELECT * FROM "type" WHERE id = $1', [typeId]);
+    return result.rows[0];
+}
+
+exports.createType = async (typeLabel) => {
+    const result = await db.query('INSERT INTO "type" ("label") VALUES ( $1) RETURNING *', [typeLabel]);
+    return result.rows[0];
+}
+
+exports.updateType = async (newLabel, typeId) => {
+    const result = await db.query('UPDATE "type" SET "label" = $1 WHERE id = $2 RETURNING *', [newLabel, typeId]);
+    return result.rows[0];
+}
+
+exports.deleteType = async (typeId) => {
+    const result = await db.query('DELETE FROM "type" WHERE id = $1', [typeId]);
     return result;
 }
