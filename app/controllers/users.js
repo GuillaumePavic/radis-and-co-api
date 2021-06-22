@@ -17,7 +17,7 @@ exports.createUser = handler(async (req, res) => {
 
     //Check si déjà un user avec cet email
     const emailUsed = await dataMapper.getUserByEmail(user.email);
-    if(emailUsed) return res.status(409).json({message: 'email already used.'})
+    if(emailUsed) return res.status(409).json({message: 'cet email est déjà utilisé'})
 
     //hash password
     user.password = await bcrypt.hash(user.password, 10);
@@ -56,7 +56,7 @@ exports.updateUser = handler(async (req, res) => {
 
     //check password
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
-    if(!validPassword) return res.status(400).json({message : "invalid password"});
+    if(!validPassword) return res.status(400).json({message : "mot de passe invalide"});
 
     //on check si password est maj dans req.body
     if(req.body.newPassword) req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
@@ -75,6 +75,6 @@ exports.deleteUser = handler(async (req, res) => {
     const userId = req.user.id;
 
     await dataMapper.deleteUser(userId);
-    res.json({message: 'user deleted'});
+    res.json({message: 'compte supprimé'});
 });
  

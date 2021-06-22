@@ -18,7 +18,7 @@ module.exports = handler(async(req, res) => {
 
     //ajouter verif que user est bien propriétaire du potager
     let schema = await dataMapper.getSchema(schemaId);
-    if(schema.user_id !== userId) return res.status(403).json({ message: 'Access denied' });
+    if(schema.user_id !== userId) return res.status(403).json({ message: 'Accès refusé' });
 
     //on supprime tous les crops pour le potager
     await dataMapper.deleteCrops(schemaId);

@@ -3,51 +3,51 @@ const Joi = require('joi');
 exports.userSchema = Joi.object({
     pseudo: Joi.string()
     .required()
-    .min(3)
-        .message('pseudo must be at least 1 character long')
+    .min(1)
+        .message('le pseudo doit contenir au moins un caractère')
     .max(30)
-        .message('pseudo cannot be longer than 30 characters')
+        .message('le pseudo ne peut pas dépasser 30 caractères')
     .pattern(new RegExp('^[ a-zA-Z0-9\-_]{1,30}$'))
-        .message('pseudo can only contain letters, numbers, whitespaces and the symbols - and _'),
+        .message('le pseudo peut seulement contenir des lettres, des chiffres, des espaces ainsi que les symboles - et _'),
 
 
     email: Joi.string()
     .required()
     .email({ minDomainSegments: 2, tlds: { allow: true } })
-        .message('invalid email format'),
+        .message('format d\'email invalide'),
     
     password: Joi.string()
     .required()
     .min(8)
-        .message('password must be at least 8 characters long')
+        .message('le mot de passe doit contenir au moins 8 caractères')
     .max(30)
-        .message('password cannot be longer than 30 characters')
+        .message('le mot de passe ne peut pas dépasser 30 caractères')
     .pattern(new RegExp('^[&!?a-zA-Z0-9]{8,30}$'))
-        .message('password can only contain letters, numbers, the symbols &!?, and no whitespace')
+        .message('le mot de passe peut seulement contenit des lettres, des chiffres, les symboles &!?, et pas d\'espace')
 });
 
 
 exports.updateSchema = Joi.object().keys({
     pseudo: Joi.string()
-    .min(3)
-        .message('pseudo must be at least 1 character long')
+    .min(1)
+        .message('ple pseudo doit contenir au moins un caractère')
     .max(30)
-        .message('pseudo cannot be longer than 30 characters')
-    .pattern(new RegExp('^[a-zA-Z0-9\-_]{1,30}$'))
-        .message('pseudo can only contain letters, numbers, the symbols - and _, and no whitespace'),
+        .message('le pseudo ne peut pas dépasser 30 caractères')
+    .pattern(new RegExp('^[ a-zA-Z0-9\-_]{1,30}$'))
+        .message('le pseudo peut seulement contenir des lettres, des chiffres, des espaces ainsi que les symboles - et _'),
 
 
     email: Joi.string()
     .email({ minDomainSegments: 2, tlds: { allow: true } })
-        .message('invalid email format'),
+        .message('format d\'email invalide'),
     
     password: Joi.string()
     .required()
     .min(8)
-        .message('password must be at least 8 characters long')
+        .message('le mot de passe doit contenir au moins 8 caractères')
     .max(30)
-        .message('password cannot be longer than 30 characters')
+        .message('le pseudo ne peut pas dépasser 30 caractères')
     .pattern(new RegExp('^[&!?a-zA-Z0-9]{8,30}$'))
-        .message('password can only contain letters, numbers, the symbols &!?, and no whitespace')
+        .message('le pseudo peut seulement contenir des lettres, des chiffres, des espaces ainsi que les symboles - et _')
 });
 

@@ -123,7 +123,7 @@ exports.createPlant = async (plant) => {
     return result;
 }
 
-exports.uppdatePlant = async (plant) => {
+exports.updatePlant = async (plant) => {
     const result = await db.query('SELECT * FROM update_plant($1)', [plant]);
     return result;
 }

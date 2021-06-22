@@ -29,7 +29,7 @@ exports.getSchema = handler(async (req, res) => {
     const schema = await dataMapper.getSchema(schemaId);
     
     if(!schema) return get404(res);
-    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
+    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
 
     const crops = await dataMapper.getCrops(schemaId);
     
@@ -52,7 +52,7 @@ exports.updateSchema = handler(async (req, res) => {
 
     let schema = await dataMapper.getSchema(schemaId);
     if(!schema) return get404(res);
-    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
+    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
 
     const schemaData = {
         ...schema,
@@ -72,11 +72,11 @@ exports.deleteSchema = handler(async(req, res) => {
     let schema = await dataMapper.getSchema(schemaId);
 
     if(!schema) return get404(res);
-    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Access denied' });
+    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
 
     await dataMapper.deleteSchema(schemaId);
 
-    res.json({ message : 'schema deleted' });
+    res.json({ message : 'potager supprimé' });
 
 
 });

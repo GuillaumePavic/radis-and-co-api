@@ -4,11 +4,11 @@ exports.schemaSchema = Joi.object({
     name : Joi.string()
         .required()
         .min(1)
-            .message('schema name must be at least 1 character long')
+            .message('le nom du potager doit contenir au moins un caractère')
         .max(30)
-            .message('name cannot be longer than 30 characters')
+            .message('le nom du potager ne peut pas dépasser 30 caractères')
         .pattern(new RegExp('^[ a-zA-Z0-9\-_]{1,30}$'))
-            .message('name can only contain letters, numbers, whitespaces and the symbols - and _'),
+            .message('le nom du potager peut seulement contenir des lettres, des chiffres, des espaces ainsi que les symboles - et _'),
 
     length: Joi.number().required(),
 
@@ -20,11 +20,11 @@ exports.schemaSchema = Joi.object({
 exports.updateSchema = Joi.object({
     name : Joi.string()
         .min(1)
-            .message('schema name must be at least 1 character long')
+            .message('le nom du potager doit contenir au moins un caractère')
         .max(30)
-            .message('name cannot be longer than 30 characters')
+            .message('le nom du potager ne peut pas dépasser 30 caractères')
         .pattern(new RegExp('^[ a-zA-Z0-9]{1,30}$'))
-            .message('name can only contain letters, numbers, whitespaces and the symbols - and _'),
+            .message('le nom du potager peut seulement contenir des lettres, des chiffres, des espaces ainsi que les symboles - et _'),
 
     length: Joi.number(),
 

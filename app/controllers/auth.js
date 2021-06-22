@@ -14,10 +14,10 @@ exports.auth = handler(async (req, res) => {
 
     //check email and password
     const user = await dataMapper.getUserByEmail(req.body.email);
-    if(!user) return res.status(400).json({message : "invalid email or password"});
+    if(!user) return res.status(400).json({message : "email ou mot de passe invalide"});
 
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
-    if(!validPassword) return res.status(400).json({message : "invalid email or password"});
+    if(!validPassword) return res.status(400).json({message : "email ou mot de passe invalide"});
 
     //JWT
     const payload = {id: user.id};

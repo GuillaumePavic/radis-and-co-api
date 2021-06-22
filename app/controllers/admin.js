@@ -1,5 +1,6 @@
 const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
+const get404 = require('../utils/404');
 
 //Users
 exports.getAllUsers = handler(async (req, res) => {
@@ -10,6 +11,10 @@ exports.getAllUsers = handler(async (req, res) => {
 exports.createAdmin = handler(async (req, res) => {
     const userId = req.params.id;
 
+    //check if user is in database
+    const user = await dataMapper.getUserById(userId);
+    if(!user) get404(res);
+
     const admin = await dataMapper.createAdmin(userId);
 
     res.json(admin);
@@ -17,6 +22,10 @@ exports.createAdmin = handler(async (req, res) => {
 
 exports.removeAdmin = handler(async (req, res) => {
     const adminId = req.params.id;
+
+    //check if user is in database
+    const user = await dataMapper.getUserById(adminId);
+    if(!user) get404(res);
 
     const admin = await dataMapper.removeAdmin(adminId);
     
@@ -26,9 +35,13 @@ exports.removeAdmin = handler(async (req, res) => {
 exports.deleteUser = handler(async (req, res) => {
     const userId = req.params.id;
 
+    //check if user is in database
+    const user = await dataMapper.getUserById(userId);
+    if(!user) get404(res);
+
     await dataMapper.deleteUser(userId);
 
-    res.json({message: 'user deleted'});
+    res.json({message: 'utilisateur supprimé'});
 });
 
 
@@ -52,5 +65,5 @@ exports.deletePlant = handler(async (req, res) => {
 
     await dataMapper.deletePlant(plantId);
 
-    res.json({message : 'plant deleted'});
+    res.json({message : 'plante supprimée'});
 })
