@@ -46,9 +46,9 @@ exports.deleteUser = async(userId) => {
 
 
 //Schemas
-exports.createSchema = async (schema) => {
+exports.createSchema = async (schema, user_id) => {
     const result = await db.query('INSERT INTO "schema" ("name", "length", "width", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id", "name", "length", "width"', 
-    [schema.name, schema.length, schema.width, schema.user_id]);
+    [schema.name, schema.length, schema.width, user_id]);
 
     return result.rows[0];
 }
@@ -82,7 +82,7 @@ exports.createCrop = async (schema_id, crop) => {
 }
 
 exports.getCrops = async (schemaId) => {
-    const results = await db.query('SELECT * FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
+    const results = await db.query('SELECT "id", "plant_id", "coord_x", "coord_y" FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
     return results.rows;
 } 
 
@@ -90,10 +90,10 @@ exports.deleteCrops = async (schema_id) => {
     await db.query('DELETE FROM "schema_has_plant" WHERE "schema_id" = $1', [schema_id]);
 }
 
-exports.updateCrop = async (crop) => {
+/*exports.updateCrop = async (crop) => {
     await db.query('UPDATE "schema_has_plant" SET "coord_x" = $1, "coord_y" = $2 WHERE id = $3',
     [crop.coord_x, crop.coord_y, crop.id]);
-}
+}*/
 
 
 //admin
