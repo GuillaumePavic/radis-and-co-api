@@ -5,12 +5,10 @@ const router = express.Router();
 
 router.put('/', authMiddleware, schemaController.createOrUpdateSchema);
 
-router.get('/user', authMiddleware, schemaController.getSchemaFromUser);
-
 router.route('/:id(\\d+)')
-    .get(authMiddleware, schemaController.getSchema)
-    .patch(authMiddleware, schemaController.updateSchema)
-    .delete(authMiddleware, schemaController.deleteSchema);
+.get(authMiddleware, schemaController.getSchema)
+.delete(authMiddleware, schemaController.deleteSchema);
 
+router.get('/user', authMiddleware, schemaController.getSchemaFromUser);
     
 module.exports = router;

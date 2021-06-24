@@ -1,53 +1,38 @@
 const dataMapper = require('../dataMappers/dataMapper');
 const handler = require('../middlewares/async');
 const get404 = require('../utils/404');
-const {schemaSchema, updateSchema} = require('../validation/schema');
-
-/*{
-	"id": 0,
-    "name": "le potager ultime",
-    "length": 4,
-    "width" : 5,
-    "crops": [
-    	{
-		"plant_id": 2,
-		"coord_x": 14,
-		"coord_y": 30
-	},
-	{
-		"plant_id": 2,
-		"coord_x": 14,
-		"coord_y": 30
-	}
-    	]
-}*/
+const schemaSchema = require('../validation/schema');
+const cropsSchema = require('../validation/crops');
 
 exports.createOrUpdateSchema = handler(async (req, res) => {
     //let schema = req.body;
     const user_id = req.user.id;
+    let crops = [...req.body.crops];
 
-    //Joi schema
-    /*try {
-        await schemaSchema.validateAsync(schema);
+    //Joi
+    try {
+        const schemaData = req.body;
+        delete schemaData.crops;
+        await schemaSchema.validateAsync(schemaData);
     } catch (error) {
-        console.log(error)
         if(error) return res.status(400).send(error.details[0].message);        
-    }*/
+    }
 
-    //Joi Crops
-    /*try {
+    try {
         for(let crop of crops) {
+            delete crop.cropId;
             await cropsSchema.validateAsync(crop);
          }
     } catch (error) {
         if(error) return res.status(400).send(error.details[0].message);        
-    }*/
-let schema = {}
-     //schema has no id
+    }
+
+    //Schema
+    let schema = {}
+
      if(req.body.id === 0) {
         schema = await dataMapper.createSchema(req.body, user_id);
      } else {
-        //schema has an id
         schema = await dataMapper.getSchema(req.body.id);
         if(!schema) return get404(res);
         if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
@@ -56,14 +41,13 @@ let schema = {}
      }
 
 
-    //crops
-    //on supprime tous les crops pour le potager
+    //Crops
     await dataMapper.deleteCrops(req.body.id);
-    for(let crop of req.body.crops) {
-    await dataMapper.createCrop(schema.id, crop);
+    for(let crop of crops) {
+        await dataMapper.createCrop(schema.id, crop);
     }
 
-    const crops = await dataMapper.getCrops(schema.id);
+    crops = await dataMapper.getCrops(schema.id);
     schema.crops = crops;
 
     //res
@@ -87,31 +71,7 @@ exports.getSchema = handler(async (req, res) => {
     res.json(schema);
 });
 
-exports.updateSchema = handler(async (req, res) => {
-    const user_id = req.user.id;
-    const schemaId = req.params.id;
 
-    //Joi
-    try {
-        await updateSchema.validateAsync(req.body);
-    } catch (error) {
-        if(error) return res.status(400).send(error.details[0].message);        
-    }
-
-    let schema = await dataMapper.getSchema(schemaId);
-    if(!schema) return get404(res);
-    if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
-
-    const schemaData = {
-        ...schema,
-        ...req.body
-    };
-
-    schema = await dataMapper.updateSchema(schemaData, schemaId); 
-
-    res.json(schema);
-
-});
 
 exports.deleteSchema = handler(async(req, res) => {
     const user_id = req.user.id;
