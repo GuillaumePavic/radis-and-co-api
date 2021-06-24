@@ -10,7 +10,7 @@
         "image": "ail.png",
         "description": "L'ail (pluriel : ails ou aulx), ail commun ou ail cultivé (Allium sativum) est une espèce de plante potagère vivace monocotylédone dont les bulbes, à l'odeur et au goût forts, sont souvent employés comme condiment en cuisine. La tête d'ail se compose de plusieurs caïeux ou « gousses » d'ail. La fleur d'ail est aussi consommée. On en distingue plusieurs types. Originaire d'Asie centrale, il aurait été utilisé depuis 5 000 ans en région méditerranéenne, en particulier en Égypte. Il est aujourd'hui toujours très apprécié dans de nombreuses régions pour ses qualités gustatives et médicinales.",
         "size" : 0.15,
-        "companion_pos" : "{9, 51, 49}",
+        "companion_pos" : "{9, 49}",
         "companion_neg" : "{43, 30, 13, 14, 15, 16, 17, 18}",
         "type_id": 4
     },
@@ -235,7 +235,7 @@
         "description": "Le chou de Bruxelles (Brassica oleracea var. gemmifera) est une variété de chou, plante herbacée de la famille des Brassicaceae (sous-famille des Brassicoideae), cultivée pour ses bourgeons axillaires qui forment de petites têtes pommées, consommées comme légume. Le terme désigne aussi ce légume. Les bourgeons à l’aisselle des fleurs forment de petites pommes, composées de nombreuses feuilles désassemblées. Ils sont récoltés en automne ou en hiver (selon le climat), par intervalles, en commençant par le bas, où ils sont plus avancés.",
         "size" : 0.5,
         "companion_pos" : "{7, 10, 11, 29, 35, 45}",
-        "companion_neg" : "{2, 49, 51}",
+        "companion_neg" : "{2, 49}",
         "type_id": 3
     },
 
@@ -251,7 +251,7 @@
         "description": "Le chou cabus ou chou pommé (Brassica oleracea var. capitata ou Brassica oleracea Groupe Capitata) est une variété de chou caractérisée par une tête et un feuillage lisse. Cultivé en Europe depuis le VIIIème siècle, ce n’est qu’au XIème siècle que la sélection a permis une différenciation entre choux blancs et rouges. De plus, les choux rouges sont plus tardifs que les choux blancs. Riches en protéines, ils le sont également en vitamines C, B1 et B2.",
         "size" : 0.5,
         "companion_pos" : "{7, 10, 11, 29, 35, 45}",
-        "companion_neg" : "{2, 49, 51}",
+        "companion_neg" : "{2, 49}",
         "type_id": 3
     },
 
@@ -267,7 +267,7 @@
         "description": "Le brocoli est une variété de chou originaire de Sicile. Il fut sélectionné par les Romains à partir du chou sauvage. Ceux-ci l'appréciaient beaucoup et la cuisine italienne l'utilise beaucoup. Le brocoli présente une tige centrale ferme ramifiée en petits bouquets qui, à la floraison, sont parsemés de minuscules fleurs jaunes. On le cueille avant l'éclosion de ses fleurs jaunes. Le mot « brocoli » est dérivé du latin bracchium signifiant « branche », en référence à la forme du légume qui fait penser à des arbres miniatures. Habituellement de couleur vert foncé à vert sauge, le brocoli peut aussi être blanc ou pourpre (violacé).",
         "size" : 0.5,
         "companion_pos" : "{7, 10, 11, 29, 35, 45}",
-        "companion_neg" : "{2, 49, 51}",
+        "companion_neg" : "{2, 49}",
         "type_id": 3
     },
 
@@ -283,7 +283,7 @@
         "description": "Le chou-fleur est une variété de choux de la famille des Brassicacées, cultivée comme plante potagère pour son méristème floral hypertrophié et charnu, consommé comme légume. Le terme désigne aussi ce légume. Le chou-fleur était connu et apprécié dans l'Antiquité en Grèce et à Rome1. En France, il est peu consommé par les élites pendant tout le Moyen Âge mais sa popularité en Italie va le rendre à la mode à partir de la Renaissance1. On l'appelle alors chou de Chypre ou chou de Syrie. Les rois Louis XIV et Louis XV en étaient friands et plusieurs recettes ont été créées à la cour, telle que le « potage à la du Barry ». Cependant sa culture ne se développe en France qu'à partir de 1830.",
         "size" : 0.5,
         "companion_pos" : "{7, 10, 11, 29, 35, 45}",
-        "companion_neg" : "{2, 49, 51}",
+        "companion_neg" : "{2, 49}",
         "type_id": 3
     },
 
@@ -426,7 +426,7 @@
         "image": "epinard.png",
         "description": "L'épinard (Spinacia oleracea) est une plante potagère, annuelle ou bisannuelle, de la famille des Chenopodiaceae ou des Amaranthaceae selon les classifications. Originaire d'Iran (il tire son nom du persan āsfanāǧ), il est aujourd'hui cultivé dans toutes les régions tempérées pour ses qualités nutritionnelles.",
         "size" : 0.2,
-        "companion_pos" : "{5, 10, 11, 35, 41, 51}",
+        "companion_pos" : "{5, 10, 11, 35, 41}",
         "companion_neg" : "{}",
         "type_id": 3
     },
@@ -458,7 +458,7 @@
         "image": "feve.png",
         "description": "Les fèves sont des plantes annuelles légumineuses de la famille des Fabaceae, sous-famille des Faboideae, tribu des Fabeae. Comme les fèveroles, les fèves cultivées ont comme origine l'espèce botanique Vicia faba. Le terme désigne aussi la graine qui, consommée à l'état frais ou sec, est l'un des légumes les plus anciennement cultivés. On la cultive pour ses graines comestibles, tout particulièrement autour du Bassin méditerranéen ainsi que maintenant dans de très nombreux pays où elle est utilisée fraîche ou sèche. En Russie, en Égypte et au Canada, elle fait partie de la cuisine traditionnelle. Consommée en grande quantité, la fève peut provoquer des crises de favisme chez les personnes sensibles.",
         "size" : 0.2,
-        "companion_pos" : "{7, 9, 33, 23, 51, 49, 15, 16, 17, 18}",
+        "companion_pos" : "{7, 9, 33, 23, 49, 15, 16, 17, 18}",
         "companion_neg" : "{28, 1, 41}",
         "type_id": 1
     },
@@ -474,7 +474,7 @@
         "image": "haricot.png",
         "description": "Les haricots verts sont des gousses immatures du haricot commun (Phaseolus vulgaris) consommées comme légumes. Selon les variétés, leur couleur peut varier entre le jaune (haricots « beurre »), le vert et le violet.",
         "size" : 0.2,
-        "companion_pos" : "{7, 9, 33, 23, 51, 49, 15, 16, 17, 18}",
+        "companion_pos" : "{7, 9, 33, 23, 49, 15, 16, 17, 18}",
         "companion_neg" : "{28, 1, 41}",
         "type_id": 1
     },

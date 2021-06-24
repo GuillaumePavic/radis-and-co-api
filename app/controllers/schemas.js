@@ -72,7 +72,6 @@ exports.getSchema = handler(async (req, res) => {
 });
 
 
-
 exports.deleteSchema = handler(async(req, res) => {
     const user_id = req.user.id;
     const schemaId = req.params.id;

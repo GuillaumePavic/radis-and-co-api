@@ -119,7 +119,12 @@ exports.deleteUser = async (userId) => {
 
 //admin plants
 exports.createPlant = async (plant) => {
-    const result = await db.query('SELECT * FROM add_plant($1)', [plant]);
+    const query = `
+    INSERT INTO "plant" ("name", "scientific_name", "sun", "water", "icon", "image", "description", "size", "companion_pos", "companion_neg", "type_id")
+    VALUES ($1, $2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`;
+
+    const result = await db.query(query, [plant.name, plant.scientific_name, plant.sun, plant.difficulty, plant.water, plant.icon, 
+        plant.image, plant.description, plant.size, plant.companion_pos, plant.companion_neg, plant.type_id]);
     return result.rows[0];
 }
 

@@ -17,7 +17,7 @@ const types = require('./json/types.json');
 const seeding = {
     plant: async (data) => {
         try {
-            //await pool.query(`SELECT * FROM seeding_plant($1)`, [data]);
+            await pool.query(`SELECT * FROM add_plant($1)`, [data]);
         } catch (error) {
             console.log(error)
         }
@@ -25,7 +25,7 @@ const seeding = {
 
     types: async (data) => {
         try {
-            //await pool.query(`SELECT * FROM seeding_type($1)`, [data]);
+            await pool.query(`SELECT * FROM add_type($1)`, [data]);
         } catch (error) {
             console.log(error)
         }
@@ -33,7 +33,7 @@ const seeding = {
 
     admin: async (data) => {
         try {
-            //await pool.query('SELECT * FROM add_admin($1)', [data]);
+            await pool.query('SELECT * FROM add_admin($1)', [data]);
         } catch (error) {
             console.log(error)
         }
