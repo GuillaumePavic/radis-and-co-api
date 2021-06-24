@@ -46,9 +46,9 @@ exports.deleteUser = async(userId) => {
 
 
 //Schemas
-exports.createSchema = async (schema) => {
+exports.createSchema = async (schema, user_id) => {
     const result = await db.query('INSERT INTO "schema" ("name", "length", "width", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id", "name", "length", "width"', 
-    [schema.name, schema.length, schema.width, schema.user_id]);
+    [schema.name, schema.length, schema.width, user_id]);
 
     return result.rows[0];
 }

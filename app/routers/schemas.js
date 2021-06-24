@@ -3,7 +3,7 @@ const authMiddleware = require('../middlewares/auth');
 const express = require('express');
 const router = express.Router();
 
-router.post('/', authMiddleware, schemaController.createSchema);
+router.put('/', authMiddleware, schemaController.createOrUpdateSchema);
 
 router.get('/user', authMiddleware, schemaController.getSchemaFromUser);
 
