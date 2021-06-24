@@ -4,9 +4,6 @@ BEGIN;
 CREATE DOMAIN text_domain AS 
    TEXT CHECK (value ~ '^[ a-zA-Z0-9\-_]{1,30}$');
 
-CREATE DOMAIN password_domain AS 
-   TEXT CHECK (value ~ '^[&!?a-zA-Z0-9]{8,30}$');
-
 CREATE DOMAIN email_domain AS 
    TEXT CHECK (value ~ '^[A-Za-z0-9+_.-]+@(.+)$');
 
@@ -39,7 +36,7 @@ CREATE TABLE "plant" (
 CREATE TABLE "user" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "email" email_domain NOT NULL UNIQUE, 
-    "password" password_domain NOT NULL, 
+    "password" TEXT NOT NULL, 
     "pseudo" text_domain NOT NULL, 
     "is_admin" BOOLEAN NOT NULL DEFAULT FALSE, 
     "created_at" TIMESTAMPTZ NOT NULL DEFAULT now()
