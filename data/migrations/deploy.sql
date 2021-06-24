@@ -105,7 +105,7 @@ CREATE OR REPLACE FUNCTION add_plant(plant json) RETURNS plant AS $$
 $$ LANGUAGE sql;
 
 
-CREATE OR REPLACE FUNCTION seeding_type(type json) RETURNS void AS $$
+CREATE OR REPLACE FUNCTION add_type(type json) RETURNS void AS $$
     INSERT INTO "type"
     (id, label) 
     VALUES(
