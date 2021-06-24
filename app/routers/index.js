@@ -6,8 +6,10 @@ const schemas = require('./schemas');
 const users = require('./users');
 const get404 = require('../utils/404');
 
+const authMiddleware = require('../middlewares/admin');
+
 module.exports = function(app) {
-    //app.use('/admin/user/:id', admin);
+    app.use('/api/admin', authMiddleware, admin);
     app.use('/api/auth', auth);
     app.use('/api/crops', crops);
     app.use('/api/plants', plants);
