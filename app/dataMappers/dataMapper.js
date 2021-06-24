@@ -42,14 +42,13 @@ exports.updatePassword = async (password, userId) => {
 exports.deleteUser = async(userId) => {
     const result = await db.query('DELETE FROM "user" WHERE id = $1', [userId]);
     return result;
-
 }
 
 
 //Schemas
-exports.createSchema = async (schema) => {
+exports.createSchema = async (schema, user_id) => {
     const result = await db.query('INSERT INTO "schema" ("name", "length", "width", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id", "name", "length", "width"', 
-    [schema.name, schema.length, schema.width, schema.user_id]);
+    [schema.name, schema.length, schema.width, user_id]);
 
     return result.rows[0];
 }
@@ -83,7 +82,7 @@ exports.createCrop = async (schema_id, crop) => {
 }
 
 exports.getCrops = async (schemaId) => {
-    const results = await db.query('SELECT * FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
+    const results = await db.query('SELECT "id", "plant_id", "coord_x", "coord_y" FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
     return results.rows;
 } 
 
@@ -91,13 +90,98 @@ exports.deleteCrops = async (schema_id) => {
     await db.query('DELETE FROM "schema_has_plant" WHERE "schema_id" = $1', [schema_id]);
 }
 
-exports.updateCrop = async (crop) => {
+/*exports.updateCrop = async (crop) => {
     await db.query('UPDATE "schema_has_plant" SET "coord_x" = $1, "coord_y" = $2 WHERE id = $3',
     [crop.coord_x, crop.coord_y, crop.id]);
+}*/
+
+
+//admin
+exports.getAllUsers = async () => {
+    const results = await db.query('SELECT id, pseudo, email, is_admin FROM "user"');
+    return results.rows;
 }
 
-exports.essai = async () => {
-    const results = await db.query('SELECT "schema".id,"schema"."length","schema"."width", ARRAY_AGG(("schema_has_plant"."plant_id", "schema_has_plant"."coord_x", "schema_has_plant"."coord_y")) AS crops FROM "schema" JOIN "schema_has_plant" ON "schema_has_plant"."schema_id" = "schema"."id" WHERE "schema"."id" = $1 GROUP BY "schema"."id", "schema"."length", "schema"."width"',
-    [2]);
+exports.createAdmin = async (userId) => {
+    const result = await db.query('UPDATE "user" SET is_admin = true WHERE id = $1 RETURNING email, is_admin', [userId]);
+    return result.rows[0];
+}
+
+exports.removeAdmin = async (adminId) => {
+    const result = await db.query('UPDATE "user" SET is_admin = false WHERE id = $1 RETURNING email, is_admin', [adminId]);
+    return result.rows[0];
+}
+
+exports.deleteUser = async (userId) => {
+    const result = await db.query('DELETE FROM "user" WHERE id = $1', [userId]);
+    return result;
+}
+
+//admin plants
+exports.createPlant = async (plant) => {
+    const query = `
+    INSERT INTO "plant" ("name", "scientific_name", "sun", "water", "icon", "image", "description", "size", "companion_pos", "companion_neg", "type_id")
+    VALUES ($1, $2,$3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`;
+
+    const result = await db.query(query, [plant.name, plant.scientific_name, plant.sun, plant.difficulty, plant.water, plant.icon, 
+        plant.image, plant.description, plant.size, plant.companion_pos, plant.companion_neg, plant.type_id]);
+    return result.rows[0];
+}
+
+exports.updatePlant = async (plant, plantId) => {
+    const query = `
+    UPDATE "plant" 
+    SET
+    "name" = $1, 
+    "scientific_name" = $2,
+    "sun" = $3,
+    "difficulty" = $4,
+    "water" = $5,
+    "icon" = $6,
+    "image" = $7,
+    "description" = $8,
+    "size" = $9,
+    "companion_pos" = $10,
+    "companion_neg" = $11,
+    "type_id" = $12
+    WHERE id = $13
+    RETURNING *
+    `;
+    const result = await db.query(query, [plant.name, plant.scientific_name, plant.sun, plant.difficulty, plant.water, plant.icon, 
+        plant.image, plant.description, plant.size, plant.companion_pos, plant.companion_neg, plant.type_id, plantId]);
+    
+    return result.rows[0];
+}
+
+
+exports.deletePlant = async (plantId) => {
+    const result = await db.query('DELETE FROM "plant" WHERE id = $1', [plantId]);
+    return result;
+}
+
+
+//admin types
+exports.getAllTypes = async () => {
+    const results = await db.query('SELECT * FROM "type"');
     return results.rows;
+}
+
+exports.getType = async (typeId) => {
+    const result = await db.query('SELECT * FROM "type" WHERE id = $1', [typeId]);
+    return result.rows[0];
+}
+
+exports.createType = async (typeLabel) => {
+    const result = await db.query('INSERT INTO "type" ("label") VALUES ( $1) RETURNING *', [typeLabel]);
+    return result.rows[0];
+}
+
+exports.updateType = async (newLabel, typeId) => {
+    const result = await db.query('UPDATE "type" SET "label" = $1 WHERE id = $2 RETURNING *', [newLabel, typeId]);
+    return result.rows[0];
+}
+
+exports.deleteType = async (typeId) => {
+    const result = await db.query('DELETE FROM "type" WHERE id = $1', [typeId]);
+    return result;
 }

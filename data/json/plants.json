@@ -458,7 +458,7 @@
         "image": "feve.png",
         "description": "Les fèves sont des plantes annuelles légumineuses de la famille des Fabaceae, sous-famille des Faboideae, tribu des Fabeae. Comme les fèveroles, les fèves cultivées ont comme origine l'espèce botanique Vicia faba. Le terme désigne aussi la graine qui, consommée à l'état frais ou sec, est l'un des légumes les plus anciennement cultivés. On la cultive pour ses graines comestibles, tout particulièrement autour du Bassin méditerranéen ainsi que maintenant dans de très nombreux pays où elle est utilisée fraîche ou sèche. En Russie, en Égypte et au Canada, elle fait partie de la cuisine traditionnelle. Consommée en grande quantité, la fève peut provoquer des crises de favisme chez les personnes sensibles.",
         "size" : 0.2,
-        "companion_pos" : "{7, 9, 33, 23, 51, 49, 15, 16, 17, 18}",
+        "companion_pos" : "{7, 9, 33, 23, 49, 15, 16, 17, 18}",
         "companion_neg" : "{28, 1, 41}",
         "type_id": 1
     },
@@ -474,7 +474,7 @@
         "image": "haricot.png",
         "description": "Les haricots verts sont des gousses immatures du haricot commun (Phaseolus vulgaris) consommées comme légumes. Selon les variétés, leur couleur peut varier entre le jaune (haricots « beurre »), le vert et le violet.",
         "size" : 0.2,
-        "companion_pos" : "{7, 9, 33, 23, 51, 49, 15, 16, 17, 18}",
+        "companion_pos" : "{7, 9, 33, 23, 49, 15, 16, 17, 18}",
         "companion_neg" : "{28, 1, 41}",
         "type_id": 1
     },
