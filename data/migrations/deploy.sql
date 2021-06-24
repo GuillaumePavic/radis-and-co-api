@@ -166,6 +166,7 @@ json_agg(DISTINCT full_companion_neg) AS companion_neg,
 type.label
 FROM plant
 LEFT JOIN full_companion_pos ON plant.id = full_companion_pos.plant_id
+LEFT JOIN full_companion_neg ON plant.id = full_companion_neg.plant_id
 JOIN type ON type.id = plant.type_id
 GROUP BY plant.id, type.label
 ORDER BY plant.id;
