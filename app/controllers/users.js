@@ -35,7 +35,6 @@ exports.getUser = handler(async (req, res) => {
     const userId = req.user.id;
 
     const user = await dataMapper.getUserById(userId);
-    delete user.password;
 
     if(!user) return get404(res);
 
