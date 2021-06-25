@@ -4,6 +4,13 @@ const dataMapper = require('../dataMappers/dataMapper');
 
 exports.getAllPlants = handler(async (req, res) => {
     const plants = await dataMapper.getAllPlants();
+
+    plants.map(plant => {
+        plant.companion_pos = plant.companion_pos[0] === null ? [] : plant.companion_pos;
+        plant.companion_neg = plant.companion_neg[0] === null ? [] : plant.companion_neg;
+        return plant;
+    })
+
     res.json(plants);
 });
 

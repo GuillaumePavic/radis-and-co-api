@@ -3,12 +3,12 @@ const authMiddleware = require('../middlewares/auth');
 const express = require('express');
 const router = express.Router();
 
-router.put('/', authMiddleware, schemaController.createOrUpdateSchema);
+router.put('/', schemaController.createOrUpdateSchema);
 
 router.route('/:id(\\d+)')
-.get(authMiddleware, schemaController.getSchema)
-.delete(authMiddleware, schemaController.deleteSchema);
+.get(schemaController.getSchema)
+.delete(schemaController.deleteSchema);
 
-router.get('/user', authMiddleware, schemaController.getSchemaFromUser);
+router.get('/user', schemaController.getSchemaFromUser);
     
 module.exports = router;
