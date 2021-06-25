@@ -25,5 +25,5 @@ exports.auth = handler(async (req, res) => {
 
     const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
     
-    res.json({pseudo: user.pseudo, token});
+    res.json({pseudo: user.pseudo, is_admin: user.is_admin, token});
 });
