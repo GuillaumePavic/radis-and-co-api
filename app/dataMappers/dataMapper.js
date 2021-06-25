@@ -19,7 +19,7 @@ exports.createUser = async (user) => {
 }
 
 exports.getUserByEmail = async (email) => {
-    const result = await db.query('SELECT "pseudo", "is_admin" FROM "user" WHERE "email" = $1', [email]);
+    const result = await db.query('SELECT "id", "pseudo", "is_admin" FROM "user" WHERE "email" = $1', [email]);
     return result.rows[0];
 }
 
