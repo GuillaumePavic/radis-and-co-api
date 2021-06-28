@@ -74,6 +74,23 @@ exports.deleteSchema = async (schemaId) => {
     return result;
 }
 
+//Crops
+exports.createCrops = async (schemaId, crop) => {
+    const results = await db.query('INSERT INTO "schema_has_plant" ("schema_id", "plant_id", "coord_x", "coord_y") VALUES ($1, $2, $3, $4)',
+    [schemaId, crop.plant_id, crop.coord_x, crop.coord_y]);
+    return results.rows[0];
+}
+
+exports.deleteCrops = async (schemaId) => {
+    const results = await db.query('DELETE FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
+    return results.rows;
+}
+
+exports.getCrops = async (schemaId) => {
+    const results = await db.query('SELECT * FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
+    return results.rows;
+}
+
 
 //Admin
 exports.getAllUsers = async () => {
