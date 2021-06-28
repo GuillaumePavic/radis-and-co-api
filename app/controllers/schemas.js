@@ -44,7 +44,7 @@ exports.createOrUpdateSchema = handler(async (req, res) => {
     //Crops
     await dataMapper.deleteCrops(req.body.id);
     for(let crop of crops) {
-        await dataMapper.createCrop(schema.id, crop);
+        await dataMapper.createCrops(schema.id, crop);
     }
 
     crops = await dataMapper.getCrops(schema.id);
