@@ -41,7 +41,7 @@
         "icon": "artichaut.png",
         "image": "artichaut.png",
         "description": "L’artichaut (Cynara cardunculus var. scolymus (L.) Benth.) est une plante dicotylédone de la famille des Astéracées (ou Composées) appartenant au genre Cynara. L'artichaut lui-même est un chardon domestiqué et cultivé, de l'espèce Cynara cardunculus, dont la variété sauvage est sans doute Cynara cardunculus var. sylvestris (Lamk.) Fiori, ayant donné naissance à deux formes : C. cardunculus f. cardunculus, le cardon, et C. cardunculus f. scolymus, l'artichaut2. Ces deux formes ont longtemps été considérées comme des espèces différentes. On désigne sous le nom d'artichaut à la fois la plante entière et sa partie comestible, l'inflorescence en capitule, appelée aussi tête d'artichaut. Le mot, apparu à la Renaissance, est emprunté à son nom arabe الأرضي-شوكي (ʾarḍiyy šawkiyy) par l'intermédiaire du lombard articiocco.",
-        "size" : 5,
+        "size" : 2,
         "companion_pos" : "{}",
         "companion_neg" : "{}",
         "type_id": 3

@@ -144,7 +144,6 @@ plant.icon, plant.name, plant.water, plant.sun, plant.difficulty
 FROM companion_neg_table
 JOIN plant ON companion_neg_table.companion_id = plant.id;
 
-
 CREATE VIEW plants_with_companions AS
 SELECT
 plant.id,
@@ -166,6 +165,6 @@ LEFT JOIN full_companion_pos ON plant.id = full_companion_pos.plant_id
 LEFT JOIN full_companion_neg ON plant.id = full_companion_neg.plant_id
 JOIN type ON type.id = plant.type_id
 GROUP BY plant.id, type.label
-ORDER BY plant.id;
+ORDER BY plant.name;
 
 COMMIT;
