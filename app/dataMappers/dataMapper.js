@@ -75,28 +75,7 @@ exports.deleteSchema = async (schemaId) => {
 }
 
 
-//Crops
-exports.createCrop = async (schema_id, crop) => {
-    await db.query('INSERT INTO "schema_has_plant" ("schema_id", "plant_id", "coord_x", "coord_y") VALUES ($1, $2, $3, $4)',
-    [schema_id, crop.plant_id, crop.coord_x, crop.coord_y]);
-}
-
-exports.getCrops = async (schemaId) => {
-    const results = await db.query('SELECT "id", "plant_id", "coord_x", "coord_y" FROM "schema_has_plant" WHERE "schema_id" = $1', [schemaId]);
-    return results.rows;
-} 
-
-exports.deleteCrops = async (schema_id) => {
-    await db.query('DELETE FROM "schema_has_plant" WHERE "schema_id" = $1', [schema_id]);
-}
-
-/*exports.updateCrop = async (crop) => {
-    await db.query('UPDATE "schema_has_plant" SET "coord_x" = $1, "coord_y" = $2 WHERE id = $3',
-    [crop.coord_x, crop.coord_y, crop.id]);
-}*/
-
-
-//admin
+//Admin
 exports.getAllUsers = async () => {
     const results = await db.query('SELECT id, pseudo, email, is_admin FROM "user"');
     return results.rows;

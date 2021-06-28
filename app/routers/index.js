@@ -1,7 +1,6 @@
 const admin = require('./admin');
 const auth = require('./auth');
 const contact = require('./contact');
-const crops = require('./crops');
 const plants = require('./plants');
 const schemas = require('./schemas');
 const users = require('./users');
@@ -14,7 +13,6 @@ module.exports = function(app) {
     app.use('/api/admin', adminMiddleware, admin);
     app.use('/api/auth', auth);
     app.use('/api/contact', contact);
-    app.use('/api/crops', crops);
     app.use('/api/plants', plants);
     app.use('/api/schemas', authMiddleware, schemas);
     app.use('/api/users', users);
