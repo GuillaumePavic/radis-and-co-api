@@ -2,7 +2,7 @@ BEGIN;
 
 --DOMAINS
 CREATE DOMAIN text_domain AS 
-   TEXT CHECK (value ~ '^[ a-zA-Z0-9\-_]{1,30}$');
+   TEXT CHECK (value ~ '^[ a-zA-Z0-9\-_]{1,30}$'); --^[ a-zA-Z0-9\-_éè'àùçùîë]{1,30}$
 
 CREATE DOMAIN email_domain AS 
    TEXT CHECK (value ~ '^[A-Za-z0-9+_.-]+@(.+)$');

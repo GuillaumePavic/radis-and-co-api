@@ -28,7 +28,7 @@ exports.createUser = handler(async (req, res) => {
     const token = jwt.sign(payload, process.env.JWTPRIVATEKEY, { expiresIn: '1h' });
 
 
-    res.json({ pseudo : user.pseudo, token });
+    res.json({pseudo: user.pseudo, email: user.email, is_admin: user.is_admin, token});
 });
 
 exports.getUser = handler(async (req, res) => {
@@ -37,6 +37,7 @@ exports.getUser = handler(async (req, res) => {
     const user = await dataMapper.getUserById(userId);
 
     if(!user) return get404(res);
+
 
     res.json(user);
 });
@@ -56,6 +57,10 @@ exports.updateUser = handler(async (req, res) => {
     //check password
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
     if(!validPassword) return res.status(400).json({message : "mot de passe invalide"});
+
+    //check si email est maj dans req.body
+    /*const checkEmail = await dataMapper.getUserByEmail(req.body.email);
+    if(!user) return res.status(400).json({message : "email ou mot de passe invalide"});*/
 
     //on check si password est maj dans req.body
     if(req.body.newPassword) req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
