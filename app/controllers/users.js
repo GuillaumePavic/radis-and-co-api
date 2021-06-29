@@ -67,7 +67,11 @@ exports.updateUser = handler(async (req, res) => {
     }*/
 
     //on check si password est maj dans req.body
-    if(req.body.newPassword) req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
+    if(req.body.newPassword) {
+        req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
+        await dataMapper.updatePassword(req.body.newPassword, userId);
+    }
+
 
     const userData = {
         ...user,
