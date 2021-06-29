@@ -59,8 +59,12 @@ exports.updateUser = handler(async (req, res) => {
     if(!validPassword) return res.status(400).json({message : "mot de passe invalide"});
 
     //check si email est maj dans req.body
-    /*const checkEmail = await dataMapper.getUserByEmail(req.body.email);
-    if(!user) return res.status(400).json({message : "email ou mot de passe invalide"});*/
+    /*if(req.body.email) {
+        if(req.body.email !== user.email) {
+            const checkEmail = await dataMapper.getUserByEmail(req.body.email);
+            if(checkEmail.id != user.id) return res.status(409).json({message: 'cet email est déjà utilisé'});
+        }
+    }*/
 
     //on check si password est maj dans req.body
     if(req.body.newPassword) req.body.newPassword = await bcrypt.hash(req.body.newPassword, 10);
