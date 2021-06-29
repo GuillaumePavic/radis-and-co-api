@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (req, res) => {
-console.log(req.body)
+
     const mail = {
         from: req.body.email,
         to: process.env.EMAIL_CONTACT,

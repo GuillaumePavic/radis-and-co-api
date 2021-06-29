@@ -5,7 +5,6 @@ const schemaSchema = require('../validation/schema');
 const cropsSchema = require('../validation/crops');
 
 exports.createOrUpdateSchema = handler(async (req, res) => {
-    //let schema = req.body;
     const user_id = req.user.id;
     let crops = [...req.body.crops];
 
@@ -30,12 +29,23 @@ exports.createOrUpdateSchema = handler(async (req, res) => {
     //Schema
     let schema = {}
 
+    req.body.name = req.body.name.toLowerCase();
+
+    //Array of already used schema names
+    let userSchemas = await dataMapper.getSchemaFromUser(user_id);
+    userSchemas = userSchemas.map(schema => schema.name);
+
+
      if(req.body.id === 0) {
+        if(userSchemas.includes(req.body.name)) return res.status(409).json({message: "Vous avez déjà utilisé ce nom pour un potager. Veuillez en choisir un autre."});
         schema = await dataMapper.createSchema(req.body, user_id);
      } else {
         schema = await dataMapper.getSchema(req.body.id);
         if(!schema) return get404(res);
         if(schema.user_id !== user_id) return res.status(403).json({ message: 'Accès refusé' });
+        if(schema.name !== req.body.name) {
+            if(userSchemas.includes(req.body.name)) return res.status(409).json({message: "Vous avez déjà utilisé ce nom pour un potager. Veuillez en choisir un autre."});
+        }
 
         schema = await dataMapper.updateSchema(req.body, req.body.id);
      }
