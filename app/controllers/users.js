@@ -38,7 +38,6 @@ exports.getUser = handler(async (req, res) => {
 
     if(!user) return get404(res);
 
-
     res.json(user);
 });
 
