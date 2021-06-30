@@ -37,6 +37,7 @@ exports.getUser = handler(async (req, res) => {
     const user = await dataMapper.getUserById(userId);
 
     if(!user) return get404(res);
+    delete user.password;
 
     res.json(user);
 });
@@ -54,6 +55,7 @@ exports.updateUser = handler(async (req, res) => {
     let user = await dataMapper.getUserById(userId);
 
     //check password
+    console.log(req.body.password, user.password)
     const validPassword = bcrypt.compareSync(req.body.password, user.password);
     if(!validPassword) return res.status(400).json({message : "mot de passe invalide"});
 
