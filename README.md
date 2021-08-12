@@ -10,7 +10,7 @@ Développée par une équipe de 5 développeurs en 1 mois en méthode agile, cel
 
 Node.JS, Express, PostgreSQL, JWT, bcrypt, JOI.
 
-## DEMO
+## Demo
 
 Vous pouvez utiliser l'application via ce lien -> https://radisandco.herokuapp.com.
 
